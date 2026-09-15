@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal World</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f8f1;
+    color: #203322;
+  }
+  header {
+    background: linear-gradient(135deg, #2e7d32, #66bb6a);
+    color: white;
+    text-align: center;
+    padding: 55px 20px;
+  }
+  header h1 { font-size: 48px; margin: 0 0 10px; }
+  header p { font-size: 20px; margin: 0; }
+  nav {
+    background: white;
+    padding: 14px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 8px #0002;
+    z-index: 2;
+  }
+  nav a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 12px;
+  }
+  main { max-width: 1100px; margin: auto; padding: 35px 20px; }
+  .intro { text-align: center; margin-bottom: 30px; }
+  .intro h2 { font-size: 32px; }
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 5px 18px #0001;
+    transition: transform .2s;
+  }
+  .card:hover { transform: translateY(-6px); }
+  .emoji { font-size: 65px; }
+  .card h3 { margin: 12px 0 8px; color: #2e7d32; }
+  button {
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 16px;
+    background: #2e7d32;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button:hover { background: #1b5e20; }
+  #fact {
+    margin: 30px auto;
+    max-width: 750px;
+    background: #fff8dc;
+    border-left: 6px solid #f9a825;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+  }
+  .quiz {
+    margin-top: 45px;
+    background: white;
+    padding: 28px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 18px #0001;
+  }
+  #quizResult { font-weight: bold; margin-top: 15px; }
+  footer {
+    margin-top: 40px;
+    background: #183b1b;
+    color: white;
+    text-align: center;
+    padding: 25px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌍 Animal World 🐾</h1>
+  <p>Discover amazing animals from around our planet!</p>
+</header>
+
+<nav>
+  <a href="#animals">Animals</a>
+  <a href="#facts">Fun Fact</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<main>
+  <section class="intro" id="animals">
+    <h2>Meet the Animal Groups</h2>
+    <p>Explore different types of animals and learn something new.</p>
+  </section>
+
+  <section class="categories">
+    <article class="card">
+      <div class="emoji">🦁</div>
+      <h3>Mammals</h3>
+      <p>Lions, elephants, dogs and many other animals are mammals.</p>
+      <button onclick="showFact('Mammals')">Learn a fact</button>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🦅</div>
+      <h3>Birds</h3>
+      <p>Eagles, parrots, penguins and owls are examples of birds.</p>
+      <button onclick="showFact('Birds')">Learn a fact</button>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🐠</div>
+      <h3>Fish</h3>
+      <p>Fish live in water and use gills to breathe.</p>
+      <button onclick="showFact('Fish')">Learn a fact</button>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🐍</div>
+      <h3>Reptiles</h3>
+      <p>Snakes, turtles, lizards and crocodiles are reptiles.</p>
+      <button onclick="showFact('Reptiles')">Learn a fact</button>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🐸</div>
+      <h3>Amphibians</h3>
+      <p>Frogs and salamanders are amphibians that often live near water.</p>
+      <button onclick="showFact('Amphibians')">Learn a fact</button>
+    </article>
+
+    <article class="card">
+      <div class="emoji">🦋</div>
+      <h3>Insects</h3>
+      <p>Butterflies, bees and ants are insects with six legs.</p>
+      <button onclick="showFact('Insects')">Learn a fact</button>
+    </article>
+  </section>
+
+  <div id="fact"></div>
+
+  <section class="quiz" id="quiz">
+    <h2>🧠 Animal Quiz</h2>
+    <p>Which animal is a mammal?</p>
+    <button onclick="answer('cat')">🐱 Cat</button>
+    <button onclick="answer('shark')">🦈 Shark</button>
+    <button onclick="answer('frog')">🐸 Frog</button>
+    <div id="quizResult"></div>
+  </section>
+</main>
+
+<footer>
+  <p>🐾 Animal World — Learn, Explore & Protect Animals 🌱</p>
+</footer>
+
+<script>
+const facts = {
+  Mammals: "Fun fact: Mammals feed their young with milk.",
+  Birds: "Fun fact: Birds have feathers, and many species can fly.",
+  Fish: "Fun fact: Fish use gills to get oxygen from water.",
+  Reptiles: "Fun fact: Most reptiles are covered in scales.",
+  Amphibians: "Fun fact: Many amphibians begin life in water.",
+  Insects: "Fun fact: Insects have six legs."
+};
+
+function showFact(group) {
+  const box = document.getElementById("fact");
+  box.textContent = facts[group];
+  box.style.display = "block";
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function answer(choice) {
+  const result = document.getElementById("quizResult");
+  if (choice === "cat") {
+    result.textContent = "🎉 Correct! A cat is a mammal.";
+  } else {
+    result.textContent = "😊 Not quite. Try again — the cat is the mammal!";
+  }
+}
+</script>
+
+</body>
+</html>
